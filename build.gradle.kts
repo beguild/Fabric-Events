@@ -1,6 +1,7 @@
 plugins {
     java
     id("java-library")
+    id("io.freefair.lombok") version "8.3"
     id("fabric-loom") version "1.4-SNAPSHOT"
 }
 
@@ -21,10 +22,6 @@ dependencies {
     } else {
         implementation("dev.frydae:beguild-common:${version}")?.let { include(it) }
     }
-}
-
-loom {
-    accessWidenerPath = file("src/main/resources/fabric-events.accesswidener")
 }
 
 tasks {

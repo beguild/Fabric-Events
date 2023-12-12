@@ -3,10 +3,10 @@ package dev.frydae.fabric.events;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import dev.frydae.beguild.systems.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
-import java.util.stream.IntStream;
 
 public final class EventManager {
     // region Singleton Stuff
@@ -30,21 +30,22 @@ public final class EventManager {
     private final ListMultimap<EventPriority, RegisteredListener> registeredListeners = ArrayListMultimap.create();
 
     void callEvent(@NotNull Event event) {
-        IntStream.rangeClosed(EventPriority.HIGHEST.getId(), EventPriority.LOWEST.getId())
-                .forEach(i ->
-                        registeredListeners.get(EventPriority.getPriority(i))
-                                .stream()
-                                .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
-                                .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
-                                .filter(registeredListener -> !(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled())
-                                .forEach(registeredListener -> {
-                                    try {
-                                        registeredListener.method().invoke(registeredListener.listener(), event);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                })
-                );
+        int bound = EventPriority.LOWEST.getId();
+        for (int i = EventPriority.HIGHEST.getId(); i <= bound; i++) {
+            registeredListeners.get(EventPriority.getPriority(i))
+                    .stream()
+                    .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
+                    .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
+                    .forEach(registeredListener -> {
+                        if (!(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled()) {
+                            try {
+                                registeredListener.method().invoke(registeredListener.listener(), event);
+                            } catch (Exception e) {
+                                Log.exception("Error calling event " + event.getClass().getSimpleName(), e);
+                            }
+                        }
+                    });
+        }
     }
 
     public void registerEvents(@NotNull Listener listener) {
