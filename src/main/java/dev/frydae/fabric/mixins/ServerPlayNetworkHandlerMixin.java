@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins;
 
-import com.llamalad7.mixinextras.sugar.Local;
+import dev.frydae.beguild.utils.NumUtil;
 import dev.frydae.fabric.events.player.PlayerDisconnectMessageEvent;
 import dev.frydae.fabric.events.player.PlayerMoveEvent;
 import dev.frydae.fabric.util.Location;
@@ -27,15 +27,14 @@ public class ServerPlayNetworkHandlerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V"),
             cancellable = true
     )
-    public void move(PlayerMoveC2SPacket packet, CallbackInfo ci,
-                     @Local(ordinal = 0) double x, @Local(ordinal = 1) double y, @Local(ordinal = 2) double z) {
+    public void move(PlayerMoveC2SPacket packet, CallbackInfo ci) {
         int oldX = (int) player.getX();
         int oldY = (int) player.getY();
         int oldZ = (int) player.getZ();
 
-        int newX = (int) x; // field d in mixin'd method
-        int newY = (int) y; // field e in mixin'd method
-        int newZ = (int) z; // field f in mixin'd method
+        int newX = (int) NumUtil.assertHorizontalCoordinate(packet.getX(this.player.getX()));
+        int newY = (int) NumUtil.assertVerticalCoordinate(packet.getY(this.player.getY()));
+        int newZ = (int) NumUtil.assertHorizontalCoordinate(packet.getZ(this.player.getZ()));
 
         if (!Objects.equals(oldX, newX) || !Objects.equals(oldY, newY) || !Objects.equals(oldZ, newZ)) {
             PlayerMoveEvent event = new PlayerMoveEvent(player, new Location(player.getServerWorld(), oldX, oldY, oldZ), new Location(player.getServerWorld(), newX, newY, newZ));

@@ -1,0 +1,3 @@
+accessWidener v2 named
+transitive-accessible method net/minecraft/server/network/ServerPlayNetworkHandler clampHorizontal (D)D
+transitive-accessible method net/minecraft/server/network/ServerPlayNetworkHandler clampVertical (D)D

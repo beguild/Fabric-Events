@@ -15,6 +15,16 @@ dependencies {
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
+
+    if (projectDir.parentFile.name.equals("BeGuild")) {
+        implementation(project(path = ":BeGuild-Common", configuration = "namedElements"))
+    } else {
+        implementation("dev.frydae:beguild-common:${version}")?.let { include(it) }
+    }
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/fabric-events.accesswidener")
 }
 
 tasks {
