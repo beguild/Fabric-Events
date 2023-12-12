@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface EventHandler {
     boolean ignoreCancelled() default false;
+
+    EventPriority priority() default EventPriority.NORMAL;
 }

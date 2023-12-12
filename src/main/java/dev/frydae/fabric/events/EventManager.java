@@ -1,13 +1,12 @@
 package dev.frydae.fabric.events;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.IntStream;
 
 public final class EventManager {
     // region Singleton Stuff
@@ -28,32 +27,24 @@ public final class EventManager {
     }
     // endregion
 
-    private final List<RegisteredListener> registeredListeners = Lists.newArrayList();
-
-    private final Map<Class<?>, List<RegisteredListener>> listenerCache = Maps.newHashMap();
+    private final ListMultimap<EventPriority, RegisteredListener> registeredListeners = ArrayListMultimap.create();
 
     void callEvent(@NotNull Event event) {
-//        if (!listenerCache.containsKey(event.getClass())) {
-//            List<RegisteredListener> list = registeredListeners.stream()
-//                    .filter(listener -> listener.type().isAssignableFrom(event.getClass()))
-//                    .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
-//                    .toList();
-//
-//            listenerCache.put(event.getClass(), list);
-//        }
-
-        if (listenerCache.containsKey(event.getClass())) {
-            listenerCache.get(event.getClass())
-                    .stream()
-                    .filter(registeredListener ->  !(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled())
-                    .forEach(registeredListener -> {
-                        try {
-                            registeredListener.method().invoke(registeredListener.listener(), event);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
-        }
+        IntStream.rangeClosed(EventPriority.HIGHEST.getId(), EventPriority.LOWEST.getId())
+                .forEach(i ->
+                        registeredListeners.get(EventPriority.getPriority(i))
+                                .stream()
+                                .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
+                                .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
+                                .filter(registeredListener -> !(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled())
+                                .forEach(registeredListener -> {
+                                    try {
+                                        registeredListener.method().invoke(registeredListener.listener(), event);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                })
+                );
     }
 
     public void registerEvents(@NotNull Listener listener) {
@@ -67,14 +58,7 @@ public final class EventManager {
                 Preconditions.checkArgument(method.getParameterCount() == 1, "Event handler methods must have exactly one parameter");
                 Preconditions.checkArgument(Event.class.isAssignableFrom(parameterType), "Event handler methods must have exactly one parameter of type Event");
 
-                registeredListeners.add(new RegisteredListener(listener, parameterType, method, handlerAnnotation.ignoreCancelled()));
-
-                List<RegisteredListener> list = registeredListeners.stream()
-                        .filter(registeredListener -> registeredListener.type().isAssignableFrom(parameterType))
-                        .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
-                        .toList();
-
-                listenerCache.put(parameterType, list);
+                registeredListeners.put(handlerAnnotation.priority(), new RegisteredListener(listener, parameterType, method, handlerAnnotation.ignoreCancelled()));
             }
         }
     }
