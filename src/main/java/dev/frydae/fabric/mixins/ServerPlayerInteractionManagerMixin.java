@@ -1,8 +1,8 @@
 package dev.frydae.fabric.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.fabric.events.player.PlayerBreakBlockEvent;
-import dev.frydae.fabric.events.player.PlayerPlaceBlockEvent;
+import dev.frydae.fabric.events.block.PlayerBreakBlockEvent;
+import dev.frydae.fabric.events.block.PlayerPlaceBlockEvent;
 import dev.frydae.fabric.events.player.PlayerUseItemEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
