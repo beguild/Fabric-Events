@@ -2,9 +2,11 @@ package dev.frydae.fabric.events.player;
 
 import dev.frydae.fabric.events.Cancellable;
 import dev.frydae.beguild.utils.Location;
+import lombok.Getter;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
+@Getter
 public class PlayerMoveEvent extends PlayerEvent implements Cancellable {
     private final Location from;
     private final Location to;
@@ -25,13 +27,5 @@ public class PlayerMoveEvent extends PlayerEvent implements Cancellable {
     @Override
     public void setCancelled() {
         this.cancelled = true;
-    }
-
-    public Location getFrom() {
-        return from;
-    }
-
-    public Location getTo() {
-        return to;
     }
 }

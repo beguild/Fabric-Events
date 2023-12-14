@@ -1,11 +1,13 @@
 package dev.frydae.fabric.events.player;
 
 import dev.frydae.fabric.events.Cancellable;
+import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
+@Getter
 public class PlayerUseItemEvent extends PlayerEvent implements Cancellable {
     private final World world;
     private final ItemStack stack;
@@ -29,17 +31,5 @@ public class PlayerUseItemEvent extends PlayerEvent implements Cancellable {
     @Override
     public void setCancelled() {
         this.cancelled = true;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public ItemStack getStack() {
-        return stack;
-    }
-
-    public Hand getHand() {
-        return hand;
     }
 }
