@@ -10,7 +10,6 @@ import net.minecraft.util.Hand;
 
 @Getter
 public class PlayerBucketEvent extends PlayerEvent implements Cancellable {
-
     private final Block block;
     private final Item bucket;
     private final ItemStack itemInHand;

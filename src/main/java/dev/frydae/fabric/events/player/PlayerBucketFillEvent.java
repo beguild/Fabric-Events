@@ -1,8 +1,6 @@
 package dev.frydae.fabric.events.player;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.enums.BlockFace;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
