@@ -3,7 +3,7 @@ package dev.frydae.fabric.mixins;
 import dev.frydae.beguild.utils.NumUtil;
 import dev.frydae.fabric.events.player.PlayerDisconnectMessageEvent;
 import dev.frydae.fabric.events.player.PlayerMoveEvent;
-import dev.frydae.fabric.util.Location;
+import dev.frydae.beguild.utils.Location;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
