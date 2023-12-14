@@ -7,6 +7,7 @@ import dev.frydae.beguild.systems.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
+import java.util.stream.IntStream;
 
 public final class EventManager {
     // region Singleton Stuff
@@ -29,25 +30,39 @@ public final class EventManager {
 
     private final ListMultimap<EventPriority, RegisteredListener> registeredListeners = ArrayListMultimap.create();
 
+    /**
+     * Calls the provided event
+     * </p>
+     * Iterates through all registered listeners and calls the method if the event type matches
+     * </p>
+     * Sorts the listeners by priority and then sorts them by whether they ignore cancelled events
+     *
+     * @param event The event to call
+     */
     void callEvent(@NotNull Event event) {
-        int bound = EventPriority.LOWEST.getId();
-        for (int i = EventPriority.HIGHEST.getId(); i <= bound; i++) {
-            registeredListeners.get(EventPriority.getPriority(i))
-                    .stream()
-                    .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
-                    .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
-                    .forEach(registeredListener -> {
-                        if (!(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled()) {
-                            try {
-                                registeredListener.method().invoke(registeredListener.listener(), event);
-                            } catch (Exception e) {
-                                Log.exception("Error calling event " + event.getClass().getSimpleName(), e);
-                            }
+        IntStream.rangeClosed(EventPriority.HIGHEST.getId(), EventPriority.LOWEST.getId())
+                .forEach(i -> registeredListeners.get(EventPriority.getPriority(i))
+                .stream()
+                .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
+                .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
+                .forEach(registeredListener -> {
+                    if (!(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled()) {
+                        try {
+                            registeredListener.method().invoke(registeredListener.listener(), event);
+                        } catch (Exception e) {
+                            Log.exception("Error calling event " + event.getClass().getSimpleName(), e);
                         }
-                    });
-        }
+                    }
+                }));
     }
 
+    /**
+     * Registers all event handlers in the provided listener
+     * </p>
+     * Searches for all methods annotated with {@link EventHandler} and registers them with the type of event in the parameter
+     *
+     * @param listener The listener to register
+     */
     public void registerEvents(@NotNull Listener listener) {
         Method[] methods = listener.getClass().getMethods();
 
