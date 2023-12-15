@@ -7,12 +7,14 @@
     "BucketItemMixin",
     "FluidBlockMixin",
     "PlayerManagerMixin",
-    "ServerPlayNetworkHandlerMixin",
     "ServerPlayerEntityMixin",
-    "ServerPlayerInteractionManagerMixin"
+    "ServerPlayerInteractionManagerMixin",
+    "ServerPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": []
+  "mixins": [
+    "ItemEntityMixin"
+  ]
 }
