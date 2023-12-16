@@ -1,4 +1,4 @@
-package dev.frydae.fabric.events.container;
+package dev.frydae.fabric.events.container.open;
 
 import dev.frydae.fabric.events.Cancellable;
 import dev.frydae.fabric.events.player.PlayerEvent;

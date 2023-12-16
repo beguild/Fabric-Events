@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.block;
 
-import dev.frydae.fabric.events.container.PlayerOpenChestEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenChestEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;

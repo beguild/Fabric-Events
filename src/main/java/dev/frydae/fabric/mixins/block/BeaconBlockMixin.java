@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.block;
 
-import dev.frydae.fabric.events.container.PlayerOpenBeaconEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenBeaconEvent;
 import net.minecraft.block.BeaconBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BeaconBlockEntity;

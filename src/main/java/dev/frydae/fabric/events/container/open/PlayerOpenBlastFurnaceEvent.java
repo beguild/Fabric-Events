@@ -1,4 +1,4 @@
-package dev.frydae.fabric.events.container;
+package dev.frydae.fabric.events.container.open;
 
 import net.minecraft.block.entity.BlastFurnaceBlockEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

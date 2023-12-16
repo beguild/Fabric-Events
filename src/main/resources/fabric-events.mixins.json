@@ -19,7 +19,6 @@
     "block.BeaconBlockMixin",
     "block.BrewingStandBlockMixin",
     "block.ChestBlockMixin",
-    "block.DispenserBlockMixin"
     "block.DispenserBlockMixin",
     "block.LecternBlockMixin",
   ]

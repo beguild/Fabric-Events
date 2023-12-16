@@ -1,8 +1,8 @@
 package dev.frydae.fabric.mixins.block;
 
-import dev.frydae.fabric.events.container.PlayerOpenContainerEvent;
-import dev.frydae.fabric.events.container.PlayerOpenDispenserEvent;
-import dev.frydae.fabric.events.container.PlayerOpenDropperEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenContainerEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenDispenserEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenDropperEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.entity.BlockEntity;

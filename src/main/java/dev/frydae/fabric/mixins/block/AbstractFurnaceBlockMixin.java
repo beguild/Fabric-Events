@@ -1,8 +1,8 @@
 package dev.frydae.fabric.mixins.block;
 
-import dev.frydae.fabric.events.container.PlayerOpenBlastFurnaceEvent;
-import dev.frydae.fabric.events.container.PlayerOpenContainerEvent;
-import dev.frydae.fabric.events.container.PlayerOpenFurnaceEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenBlastFurnaceEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenContainerEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenFurnaceEvent;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlastFurnaceBlockEntity;

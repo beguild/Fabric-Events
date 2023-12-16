@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.block;
 
-import dev.frydae.fabric.events.container.PlayerOpenBrewingStandEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenBrewingStandEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BrewingStandBlock;
 import net.minecraft.block.entity.BlockEntity;

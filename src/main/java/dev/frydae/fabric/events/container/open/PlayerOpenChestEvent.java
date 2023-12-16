@@ -1,4 +1,4 @@
-package dev.frydae.fabric.events.container;
+package dev.frydae.fabric.events.container.open;
 
 import lombok.Getter;
 import net.minecraft.block.entity.ChestBlockEntity;
