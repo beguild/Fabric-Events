@@ -60,8 +60,8 @@ The Fabric Event API is a lightweight library for creating and managing events i
       }
    
       @Override
-      public void setCancelled(boolean cancelled) {
-          this.cancelled = cancelled;
+      public void setCancelled() {
+          this.cancelled = true;
       }
       */
    }
