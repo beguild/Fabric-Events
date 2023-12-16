@@ -7,6 +7,7 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "BrewingStandBlockMixin",
     "BucketItemMixin",
     "ChestBlockMixin",
     "DispenserBlockMixin",

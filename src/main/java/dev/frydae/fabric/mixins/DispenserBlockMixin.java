@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class DispenserBlockMixin {
     @Inject(
             method = "onUse",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/World;getBlockEntity(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/entity/BlockEntity;"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"),
             cancellable = true
     )
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
@@ -44,7 +44,7 @@ public class DispenserBlockMixin {
                 event.callEvent();
 
                 if (event.isCancelled()) {
-                    cir.setReturnValue(ActionResult.FAIL);
+                    cir.setReturnValue(ActionResult.CONSUME);
                 }
             }
         }

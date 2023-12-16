@@ -1,9 +1,11 @@
 package dev.frydae.fabric.events.container;
 
+import lombok.Getter;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.TrappedChestBlockEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+@Getter
 public class PlayerOpenChestEvent extends PlayerOpenContainerEvent {
     private final boolean trapped;
 
@@ -26,7 +28,4 @@ public class PlayerOpenChestEvent extends PlayerOpenContainerEvent {
         return (TrappedChestBlockEntity) super.getBlockEntity();
     }
 
-    public boolean isTrapped() {
-        return trapped;
-    }
 }
