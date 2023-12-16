@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.net.minecraft.screen;
 
 import dev.frydae.fabric.events.container.PlayerTakeLecternEvent;
 import net.minecraft.entity.player.PlayerEntity;

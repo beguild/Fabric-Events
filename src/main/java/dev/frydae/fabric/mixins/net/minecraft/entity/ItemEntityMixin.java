@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.net.minecraft.entity;
 
 import dev.frydae.fabric.events.player.PlayerPickupItemEvent;
 import net.minecraft.entity.ItemEntity;

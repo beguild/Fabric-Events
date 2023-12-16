@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.net.minecraft.server.network;
 
 import dev.frydae.fabric.events.player.PlayerDropItemEvent;
 import net.minecraft.item.ItemStack;

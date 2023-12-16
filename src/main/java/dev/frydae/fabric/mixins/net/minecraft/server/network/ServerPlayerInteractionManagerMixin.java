@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.net.minecraft.server.network;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.frydae.fabric.events.block.PlayerBreakBlockEvent;

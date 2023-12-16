@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.net.minecraft.server;
 
 import dev.frydae.fabric.events.player.PlayerJoinMessageEvent;
 import net.minecraft.network.ClientConnection;

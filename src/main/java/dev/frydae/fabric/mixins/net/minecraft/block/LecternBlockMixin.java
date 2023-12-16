@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins.block;
+package dev.frydae.fabric.mixins.net.minecraft.block;
 
 import dev.frydae.fabric.events.container.open.PlayerOpenLecternEvent;
 import dev.frydae.fabric.events.container.PlayerPlaceLecternEvent;

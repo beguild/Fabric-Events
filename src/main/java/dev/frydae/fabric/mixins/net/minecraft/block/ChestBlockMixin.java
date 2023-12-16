@@ -1,12 +1,12 @@
-package dev.frydae.fabric.mixins.block;
+package dev.frydae.fabric.mixins.net.minecraft.block;
 
-import dev.frydae.fabric.events.container.JukeboxTakeEvent;
+import dev.frydae.fabric.events.container.open.PlayerOpenChestEvent;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.JukeboxBlock;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.JukeboxBlockEntity;
+import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.entity.TrappedChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -18,20 +18,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(JukeboxBlock.class)
-public class JukeboxBlockMixin {
+@Mixin(ChestBlock.class)
+public class ChestBlockMixin {
     @Inject(
             method = "onUse",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/JukeboxBlockEntity;dropRecord()V"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"),
             cancellable = true
     )
     public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
-        if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof JukeboxBlockEntity jukeboxBlockEntity) {
-            ItemStack discStack = jukeboxBlockEntity.getStack(0);
+        if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof ChestBlockEntity chestBlockEntity) {
+            boolean trapped = chestBlockEntity instanceof TrappedChestBlockEntity;
 
-            JukeboxTakeEvent event = new JukeboxTakeEvent(serverPlayer, jukeboxBlockEntity, discStack);
+            PlayerOpenChestEvent event = new PlayerOpenChestEvent(serverPlayer, chestBlockEntity, trapped);
 
             event.callEvent();
 
