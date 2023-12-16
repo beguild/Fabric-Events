@@ -7,11 +7,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 @Getter
-public class PlayerOpenContainerEvent extends PlayerEvent implements Cancellable {
-    private final BlockEntity blockEntity;
+public class PlayerOpenContainerEvent<T extends BlockEntity> extends PlayerEvent implements Cancellable {
+    private final T blockEntity;
     private boolean cancelled = false;
 
-    public PlayerOpenContainerEvent(ServerPlayerEntity player, BlockEntity blockEntity) {
+    public PlayerOpenContainerEvent(ServerPlayerEntity player, T blockEntity) {
         super(player);
 
         this.blockEntity = blockEntity;

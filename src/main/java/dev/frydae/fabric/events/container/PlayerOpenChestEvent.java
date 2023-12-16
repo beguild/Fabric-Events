@@ -6,18 +6,13 @@ import net.minecraft.block.entity.TrappedChestBlockEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 @Getter
-public class PlayerOpenChestEvent extends PlayerOpenContainerEvent {
+public class PlayerOpenChestEvent extends PlayerOpenContainerEvent<ChestBlockEntity> {
     private final boolean trapped;
 
     public PlayerOpenChestEvent(ServerPlayerEntity player, ChestBlockEntity blockEntity, boolean trapped) {
         super(player, blockEntity);
 
         this.trapped = trapped;
-    }
-
-    @Override
-    public ChestBlockEntity getBlockEntity() {
-        return (ChestBlockEntity) super.getBlockEntity();
     }
 
     public TrappedChestBlockEntity asTrappedChestEntity() {

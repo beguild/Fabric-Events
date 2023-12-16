@@ -7,15 +7,16 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "BrewingStandBlockMixin",
     "BucketItemMixin",
-    "ChestBlockMixin",
-    "DispenserBlockMixin",
     "FluidBlockMixin",
     "ItemEntityMixin",
     "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
-    "ServerPlayNetworkHandlerMixin"
+    "ServerPlayNetworkHandlerMixin",
+    "block.BeaconBlockMixin",
+    "block.BrewingStandBlockMixin",
+    "block.ChestBlockMixin",
+    "block.DispenserBlockMixin"
   ]
 }

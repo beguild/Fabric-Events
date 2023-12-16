@@ -1,4 +1,4 @@
-package dev.frydae.fabric.mixins;
+package dev.frydae.fabric.mixins.block;
 
 import dev.frydae.fabric.events.container.PlayerOpenContainerEvent;
 import dev.frydae.fabric.events.container.PlayerOpenDispenserEvent;
