@@ -11,6 +11,7 @@
     "FluidBlockMixin",
     "ItemEntityMixin",
     "LecternScreenHandlerMixin",
+    "MusicDiscItemMixin",
     "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
@@ -20,6 +21,7 @@
     "block.BrewingStandBlockMixin",
     "block.ChestBlockMixin",
     "block.DispenserBlockMixin",
+    "block.JukeboxBlockMixin",
     "block.LecternBlockMixin",
     "block.ShulkerBoxMixin"
   ]
