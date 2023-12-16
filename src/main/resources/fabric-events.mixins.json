@@ -21,5 +21,6 @@
     "block.ChestBlockMixin",
     "block.DispenserBlockMixin",
     "block.LecternBlockMixin",
+    "block.ShulkerBoxMixin"
   ]
 }
