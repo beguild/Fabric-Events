@@ -3,18 +3,18 @@
   "minVersion": "0.8",
   "package": "dev.frydae.fabric.mixins",
   "compatibilityLevel": "JAVA_17",
-  "server": [
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
     "BucketItemMixin",
+    "ChestBlockMixin",
     "DispenserBlockMixin",
     "FluidBlockMixin",
     "ItemEntityMixin",
     "PlayerManagerMixin",
-    "ServerPlayNetworkHandlerMixin",
     "ServerPlayerEntityMixin",
-    "ServerPlayerInteractionManagerMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "mixins": []
+    "ServerPlayerInteractionManagerMixin",
+    "ServerPlayNetworkHandlerMixin"
+  ]
 }
