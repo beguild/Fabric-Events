@@ -10,6 +10,7 @@
     "BucketItemMixin",
     "FluidBlockMixin",
     "ItemEntityMixin",
+    "LecternScreenHandlerMixin",
     "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
@@ -19,5 +20,7 @@
     "block.BrewingStandBlockMixin",
     "block.ChestBlockMixin",
     "block.DispenserBlockMixin"
+    "block.DispenserBlockMixin",
+    "block.LecternBlockMixin",
   ]
 }
