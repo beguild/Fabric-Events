@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.net.minecraft.item;
 
-import dev.frydae.fabric.events.container.JukeboxPlaceEvent;
+import dev.frydae.fabric.events.container.jukebox.JukeboxPlaceEvent;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

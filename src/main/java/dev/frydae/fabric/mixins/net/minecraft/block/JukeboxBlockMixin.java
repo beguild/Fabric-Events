@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.net.minecraft.block;
 
-import dev.frydae.fabric.events.container.JukeboxTakeEvent;
+import dev.frydae.fabric.events.container.jukebox.JukeboxTakeEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.JukeboxBlock;
 import net.minecraft.block.entity.BlockEntity;

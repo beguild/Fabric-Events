@@ -11,6 +11,7 @@
     "net.minecraft.block.BeaconBlockMixin",
     "net.minecraft.block.BrewingStandBlockMixin",
     "net.minecraft.block.ChestBlockMixin",
+    "net.minecraft.block.ChiseledBookshelfBlockMixin",
     "net.minecraft.block.DispenserBlockMixin",
     "net.minecraft.block.FluidBlockMixin",
     "net.minecraft.block.JukeboxBlockMixin",
@@ -21,8 +22,8 @@
     "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
     "net.minecraft.server.PlayerManagerMixin",
-    "net.minecraft.server.network.ServerPlayNetworkHandlerMixin",
     "net.minecraft.server.network.ServerPlayerEntityMixin",
-    "net.minecraft.server.network.ServerPlayerInteractionManagerMixin"
+    "net.minecraft.server.network.ServerPlayerInteractionManagerMixin",
+    "net.minecraft.server.network.ServerPlayNetworkHandlerMixin"
   ]
 }

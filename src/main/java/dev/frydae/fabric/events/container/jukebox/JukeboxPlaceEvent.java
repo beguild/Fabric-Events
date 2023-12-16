@@ -1,4 +1,4 @@
-package dev.frydae.fabric.events.container;
+package dev.frydae.fabric.events.container.jukebox;
 
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.net.minecraft.screen;
 
-import dev.frydae.fabric.events.container.PlayerTakeLecternEvent;
+import dev.frydae.fabric.events.container.lectern.PlayerTakeLecternEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

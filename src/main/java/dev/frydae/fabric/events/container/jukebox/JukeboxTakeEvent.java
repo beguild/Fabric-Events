@@ -1,6 +1,5 @@
-package dev.frydae.fabric.events.container;
+package dev.frydae.fabric.events.container.jukebox;
 
-import lombok.Getter;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
