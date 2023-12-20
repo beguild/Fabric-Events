@@ -24,7 +24,7 @@ public final class BlockEvents {
         event.callEvent();
 
         if (event instanceof Cancellable) {
-            return ((Cancellable) event).isCancelled();
+            return !((Cancellable) event).isCancelled();
         }
 
         return true;
@@ -32,40 +32,40 @@ public final class BlockEvents {
 
     @Unique
     public static boolean callBucketEmptyEvent(ServerPlayerEntity player, Block block, ItemStack bucket, Hand hand) {
-        return !callEvent(new PlayerBucketEmptyEvent(player, block, bucket.getItem(), bucket, hand));
+        return callEvent(new PlayerBucketEmptyEvent(player, block, bucket.getItem(), bucket, hand));
     }
 
     @Unique
     public static boolean callWaterlogEvent(ServerPlayerEntity player, Location location) {
-        return !callEvent(new PlayerWaterlogBlockEvent(player, location));
+        return callEvent(new PlayerWaterlogBlockEvent(player, location));
     }
 
     @Unique
     public static boolean callCampfireExtinguishEvent(ServerPlayerEntity player, Location location) {
-        return !callEvent(new CampfireBlockExtinguishEvent(player, location));
+        return callEvent(new CampfireBlockExtinguishEvent(player, location));
     }
 
     @Unique
     public static boolean callCandleCakeBlockExtinguishEvent(ServerPlayerEntity player, Location location) {
-        return !callEvent(new CandleCakeBlockExtinguishEvent(player, location));
+        return callEvent(new CandleCakeBlockExtinguishEvent(player, location));
     }
 
     @Unique
     public static boolean callBreakBlockEvent(ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState blockState) {
-        return !callEvent(new PlayerBreakBlockEvent(player, world, pos, blockState));
+        return callEvent(new PlayerBreakBlockEvent(player, world, pos, blockState));
     }
 
     @Unique
     public static boolean callPlaceBlockEvent(ServerPlayerEntity player, World world, BlockPos blockPos, BlockState blockState, ItemStack stack) {
-        return !callEvent(new PlayerPlaceBlockEvent(player, world, blockPos, blockState, stack));
+        return callEvent(new PlayerPlaceBlockEvent(player, world, blockPos, blockState, stack));
     }
 
     @Unique
     public static boolean callExtinguishEvent(ServerPlayerEntity player, Location location) {
-        return !callEvent(new BlockExtinguishEvent(player, location));
+        return callEvent(new BlockExtinguishEvent(player, location));
     }
 
     public static boolean callCandleBlockExtinguishEvent(ServerPlayerEntity player, Location location) {
-        return !callEvent(new CandleBlockExtinguishEvent(player, location));
+        return callEvent(new CandleBlockExtinguishEvent(player, location));
     }
 }
