@@ -1,4 +1,4 @@
-package dev.frydae.fabric.events.player;
+package dev.frydae.fabric.events.player.bucket;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

@@ -1,6 +1,7 @@
-package dev.frydae.fabric.events.player;
+package dev.frydae.fabric.events.player.bucket;
 
 import dev.frydae.fabric.events.Cancellable;
+import dev.frydae.fabric.events.player.PlayerEvent;
 import lombok.Getter;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

@@ -1,6 +1,11 @@
 package dev.frydae.fabric.mixins.net.minecraft.item;
 
-import dev.frydae.fabric.events.player.PlayerBucketEmptyEvent;
+import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.events.block.BlockEvents;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -32,11 +37,44 @@ public class BucketItemMixin {
             bucket = null;
         }
 
-        PlayerBucketEmptyEvent event = new PlayerBucketEmptyEvent((ServerPlayerEntity) player, world.getBlockState(pos).getBlock(), bucket.getItem(), bucket, player.getActiveHand());
+        Block block = world.getBlockState(pos).getBlock();
 
-        event.callEvent();
+        boolean failure = !BlockEvents.callBucketEmptyEvent((ServerPlayerEntity) player, block, bucket, player.getActiveHand());
 
-        if (event.isCancelled()) {
+        failure |= !BlockEvents.callPlaceBlockEvent((ServerPlayerEntity) player, world, pos, world.getBlockState(pos), bucket);
+
+        if (failure) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(
+            method = "placeFluid",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/FluidFillable;tryFillWithFluid(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/fluid/FluidState;)Z"),
+            cancellable = true
+    )
+    public void onWaterlog(PlayerEntity player, World world, BlockPos pos, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> cir) {
+        BlockState blockState = world.getBlockState(pos);
+        Block block = blockState.getBlock();
+        Location location = new Location(world, pos);
+
+        // Check if you're allowed to empty a bucket
+        boolean failure = !BlockEvents.callBucketEmptyEvent((ServerPlayerEntity) player, block, player.getStackInHand(player.getActiveHand()), player.getActiveHand());
+
+        // Check if you're allowed to waterlog a block
+        failure |= !BlockEvents.callWaterlogEvent((ServerPlayerEntity) player, location);
+
+        // Check if you're allowed to place a block
+        failure |= !BlockEvents.callPlaceBlockEvent((ServerPlayerEntity) player, world, pos, blockState, player.getStackInHand(player.getActiveHand()));
+
+        // Check if you're allowed to extinguish a campfire
+        if (blockState.isOf(Blocks.CAMPFIRE) || blockState.isOf(Blocks.SOUL_CAMPFIRE)) {
+            if (blockState.get(CampfireBlock.LIT)) {
+                failure |= !BlockEvents.callCampfireExtinguishEvent((ServerPlayerEntity) player, location);
+            }
+        }
+
+        if (failure) {
             cir.setReturnValue(false);
         }
     }

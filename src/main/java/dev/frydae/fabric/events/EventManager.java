@@ -43,7 +43,7 @@ public final class EventManager {
         IntStream.rangeClosed(EventPriority.HIGHEST.getId(), EventPriority.LOWEST.getId())
                 .forEach(i -> registeredListeners.get(EventPriority.getPriority(i))
                 .stream()
-                .filter(registeredListener -> registeredListener.type().isAssignableFrom(event.getClass()))
+                .filter(registeredListener -> registeredListener.type().equals(event.getClass()))
                 .sorted((a, b) -> Boolean.compare(a.ignoreCancelled(), b.ignoreCancelled()))
                 .forEach(registeredListener -> {
                     if (!(event instanceof Cancellable cancellable) || !cancellable.isCancelled() || !registeredListener.ignoreCancelled()) {

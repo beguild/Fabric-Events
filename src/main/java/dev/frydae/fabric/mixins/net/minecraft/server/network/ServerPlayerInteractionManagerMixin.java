@@ -1,8 +1,7 @@
 package dev.frydae.fabric.mixins.net.minecraft.server.network;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.fabric.events.block.PlayerBreakBlockEvent;
-import dev.frydae.fabric.events.block.PlayerPlaceBlockEvent;
+import dev.frydae.fabric.events.block.BlockEvents;
 import dev.frydae.fabric.events.player.PlayerUseItemEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -32,11 +31,7 @@ public class ServerPlayerInteractionManagerMixin {
         cancellable = true
     )
     public void onBlockBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir, @Local(ordinal = 0) BlockState blockState) {
-        PlayerBreakBlockEvent event = new PlayerBreakBlockEvent(this.player, this.world, pos, blockState);
-
-        event.callEvent();
-
-        if (event.isCancelled()) {
+        if (!BlockEvents.callBreakBlockEvent(this.player, this.world, pos, blockState)) {
             cir.setReturnValue(false);
         }
     }
@@ -47,11 +42,7 @@ public class ServerPlayerInteractionManagerMixin {
             cancellable = true
     )
     public void onBlockPlace(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        PlayerPlaceBlockEvent event = new PlayerPlaceBlockEvent(player, world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), stack);
-
-        event.callEvent();
-
-        if (event.isCancelled()) {
+        if (!BlockEvents.callPlaceBlockEvent(player, world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), stack)) {
             cir.setReturnValue(ActionResult.FAIL);
         }
     }

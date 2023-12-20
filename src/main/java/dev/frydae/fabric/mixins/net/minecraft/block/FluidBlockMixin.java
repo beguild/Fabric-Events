@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.net.minecraft.block;
 
-import dev.frydae.fabric.events.player.PlayerBucketFillEvent;
+import dev.frydae.fabric.events.player.bucket.PlayerBucketFillEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.entity.player.PlayerEntity;

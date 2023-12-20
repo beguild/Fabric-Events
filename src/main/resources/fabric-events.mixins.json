@@ -7,9 +7,13 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "net.minecraft.block.AbstractFireBlockMixin",
     "net.minecraft.block.AbstractFurnaceBlockMixin",
     "net.minecraft.block.BeaconBlockMixin",
     "net.minecraft.block.BrewingStandBlockMixin",
+    "net.minecraft.block.CakeBlockMixin",
+    "net.minecraft.block.CandleBlockMixin",
+    "net.minecraft.block.CandleCakeBlockMixin",
     "net.minecraft.block.ChestBlockMixin",
     "net.minecraft.block.ChiseledBookshelfBlockMixin",
     "net.minecraft.block.DispenserBlockMixin",
@@ -20,7 +24,9 @@
     "net.minecraft.block.ShulkerBoxMixin",
     "net.minecraft.block.entity.HopperBlockEntityMixin",
     "net.minecraft.entity.ItemEntityMixin",
+    "net.minecraft.entity.projectile.thrown.PotionEntityMixin",
     "net.minecraft.item.BucketItemMixin",
+    "net.minecraft.item.FlintAndSteelItemMixin",
     "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
     "net.minecraft.server.PlayerManagerMixin",
