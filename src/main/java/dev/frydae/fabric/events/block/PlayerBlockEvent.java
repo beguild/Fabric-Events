@@ -1,25 +1,22 @@
 package dev.frydae.fabric.events.block;
 
+import dev.frydae.beguild.utils.Location;
 import dev.frydae.fabric.events.Cancellable;
 import dev.frydae.fabric.events.player.PlayerEvent;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 @Getter
 public abstract class PlayerBlockEvent extends PlayerEvent implements Cancellable {
-    private final World world;
-    private final BlockPos blockPos;
+    private final Location location;
     private final BlockState blockState;
     private boolean cancelled = false;
 
-    public PlayerBlockEvent(ServerPlayerEntity player, World world, BlockPos blockPos, BlockState blockState) {
+    public PlayerBlockEvent(ServerPlayerEntity player, Location location, BlockState blockState) {
         super(player);
 
-        this.world = world;
-        this.blockPos = blockPos;
+        this.location = location;
         this.blockState = blockState;
     }
 

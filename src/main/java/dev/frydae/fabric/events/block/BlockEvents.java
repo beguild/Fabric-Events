@@ -52,12 +52,12 @@ public final class BlockEvents {
 
     @Unique
     public static boolean callBreakBlockEvent(ServerPlayerEntity player, ServerWorld world, BlockPos pos, BlockState blockState) {
-        return callEvent(new PlayerBreakBlockEvent(player, world, pos, blockState));
+        return callEvent(new PlayerBreakBlockEvent(player, new Location(world, pos), blockState));
     }
 
     @Unique
     public static boolean callPlaceBlockEvent(ServerPlayerEntity player, World world, BlockPos blockPos, BlockState blockState, ItemStack stack) {
-        return callEvent(new PlayerPlaceBlockEvent(player, world, blockPos, blockState, stack));
+        return callEvent(new PlayerPlaceBlockEvent(player, new Location(world, blockPos), blockState, stack));
     }
 
     @Unique

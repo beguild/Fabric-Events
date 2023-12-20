@@ -42,7 +42,9 @@ public class ServerPlayerInteractionManagerMixin {
             cancellable = true
     )
     public void onBlockPlace(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (!BlockEvents.callPlaceBlockEvent(player, world, hitResult.getBlockPos(), world.getBlockState(hitResult.getBlockPos()), stack)) {
+        BlockPos newPos = hitResult.getBlockPos().add(0, 1, 0);
+
+        if (!BlockEvents.callPlaceBlockEvent(player, world, newPos, world.getBlockState(newPos), stack)) {
             cir.setReturnValue(ActionResult.FAIL);
         }
     }
