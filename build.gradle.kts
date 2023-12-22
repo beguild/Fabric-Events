@@ -20,7 +20,7 @@ dependencies {
     if (projectDir.parentFile.name.equals("BeGuild")) {
         implementation(project(path = ":BeGuild-Common", configuration = "namedElements"))
     } else {
-        implementation("dev.frydae:beguild-common:${version}")?.let { include(it) }
+        implementation("dev.frydae:beguild-common:${version}")
     }
 }
 
