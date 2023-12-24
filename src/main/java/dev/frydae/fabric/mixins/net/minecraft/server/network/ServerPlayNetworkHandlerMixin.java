@@ -1,14 +1,19 @@
 package dev.frydae.fabric.mixins.net.minecraft.server.network;
 
+import dev.frydae.beguild.utils.Location;
 import dev.frydae.beguild.utils.NumUtil;
 import dev.frydae.fabric.events.player.PlayerDisconnectMessageEvent;
+import dev.frydae.fabric.events.player.PlayerDropItemEvent;
 import dev.frydae.fabric.events.player.PlayerMoveEvent;
-import dev.frydae.beguild.utils.Location;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
 
+@Debug(export = true)
 @Mixin(ServerPlayNetworkHandler.class)
 public class ServerPlayNetworkHandlerMixin {
     @Shadow public ServerPlayerEntity player;
@@ -59,6 +65,29 @@ public class ServerPlayNetworkHandlerMixin {
 
         if (!messageEvent.isCancelled()) {
             instance.broadcast(messageEvent.getMessage(), overlay);
+        }
+    }
+
+    @Inject(
+            method = "onClickSlot",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;updateLastActionTime()V"),
+            cancellable = true
+    )
+    public void handleClickSlotThrow(ClickSlotC2SPacket packet, CallbackInfo ci) {
+        if (packet.getActionType() == SlotActionType.THROW) {
+            if (packet.getSlot() >= 0) {
+                ItemStack stack = player.currentScreenHandler.getSlot(packet.getSlot()).getStack();
+
+                PlayerDropItemEvent event = new PlayerDropItemEvent(player, stack);
+
+                event.callEvent();
+
+                if (event.isCancelled()) {
+                    ci.cancel();
+
+                    player.currentScreenHandler.updateToClient();
+                }
+            }
         }
     }
 }
