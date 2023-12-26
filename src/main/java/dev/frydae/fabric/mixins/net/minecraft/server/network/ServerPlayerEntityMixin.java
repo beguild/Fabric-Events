@@ -51,6 +51,7 @@ public class ServerPlayerEntityMixin {
                     player.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(-2, 0, slotWithStack, stack));
                 } else {
                     player.getInventory().insertStack(stack);
+                    player.currentScreenHandler.updateToClient();
                 }
             }
         }
