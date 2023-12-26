@@ -24,6 +24,7 @@
     "net.minecraft.block.ShulkerBoxMixin",
     "net.minecraft.block.entity.HopperBlockEntityMixin",
     "net.minecraft.entity.ItemEntityMixin",
+    "net.minecraft.entity.player.HungerManagerMixin",
     "net.minecraft.entity.projectile.thrown.PotionEntityMixin",
     "net.minecraft.item.BucketItemMixin",
     "net.minecraft.item.FlintAndSteelItemMixin",
