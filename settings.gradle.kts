@@ -31,8 +31,10 @@ gradleEnterprise {
 
 rootProject.name = "Fabric-Events"
 
-if (rootProject.projectDir.parentFile.name.equals("BeGuild")) {
-    include("BeGuild-Common")
-
-    project(":BeGuild-Common").projectDir = file("../BeGuild-Common")
+listOf("BeGuild-Common").forEach { dep ->
+    if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
+        implementation(project(path = ":${dep}", configuration = "namedElements"))
+    } else {
+        implementation("dev.frydae:${dep.lowercase()}:${version}")
+    }
 }

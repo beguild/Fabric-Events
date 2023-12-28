@@ -17,10 +17,12 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
-    if (projectDir.parentFile.name.equals("BeGuild")) {
-        implementation(project(path = ":BeGuild-Common", configuration = "namedElements"))
-    } else {
-        implementation("dev.frydae:beguild-common:${version}")
+    listOf("BeGuild-Common").forEach { dep ->
+        if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
+            implementation(project(path = ":${dep}", configuration = "namedElements"))
+        } else {
+            implementation("dev.frydae:${dep.lowercase()}:${version}")
+        }
     }
 }
 
