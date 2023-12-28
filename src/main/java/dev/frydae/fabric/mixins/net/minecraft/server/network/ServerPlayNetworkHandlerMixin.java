@@ -5,6 +5,7 @@ import dev.frydae.beguild.utils.NumUtil;
 import dev.frydae.fabric.events.player.PlayerDisconnectMessageEvent;
 import dev.frydae.fabric.events.player.PlayerDropItemEvent;
 import dev.frydae.fabric.events.player.PlayerMoveEvent;
+import dev.frydae.fabric.events.container.inventories.InventoryClickEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -88,6 +89,22 @@ public class ServerPlayNetworkHandlerMixin {
                     player.currentScreenHandler.updateToClient();
                 }
             }
+        }
+    }
+
+    @Inject(
+            method = "onClickSlot",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;updateLastActionTime()V"),
+            cancellable = true
+    )
+    public void handleInventoryClick(ClickSlotC2SPacket packet, CallbackInfo ci) {
+        InventoryClickEvent clickEvent = new InventoryClickEvent(player, player.currentScreenHandler, packet.getSlot(), packet.getActionType(), packet.getButton());
+
+        clickEvent.callEvent();
+
+        if (clickEvent.isCancelled()) {
+            player.currentScreenHandler.updateToClient();
+            ci.cancel();
         }
     }
 }
