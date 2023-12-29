@@ -2,12 +2,15 @@ package dev.frydae.fabric.mixins.net.minecraft.server.network;
 
 import dev.frydae.beguild.utils.Location;
 import dev.frydae.beguild.utils.NumUtil;
+import dev.frydae.fabric.events.container.inventories.InventoryCloseEvent;
+import dev.frydae.fabric.events.container.inventories.InventoryPostClickEvent;
 import dev.frydae.fabric.events.player.PlayerDisconnectMessageEvent;
 import dev.frydae.fabric.events.player.PlayerDropItemEvent;
 import dev.frydae.fabric.events.player.PlayerMoveEvent;
 import dev.frydae.fabric.events.container.inventories.InventoryClickEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
+import net.minecraft.network.packet.c2s.play.CloseHandledScreenC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.PlayerManager;
@@ -106,5 +109,25 @@ public class ServerPlayNetworkHandlerMixin {
             player.currentScreenHandler.updateToClient();
             ci.cancel();
         }
+    }
+
+    @Inject(
+            method = "onClickSlot",
+            at = @At(value = "TAIL")
+    )
+    public void handleInventoryPostClick(ClickSlotC2SPacket packet, CallbackInfo ci) {
+        InventoryPostClickEvent clickEvent = new InventoryPostClickEvent(player, player.currentScreenHandler, packet.getSlot(), packet.getActionType(), packet.getButton());
+
+        clickEvent.callEvent();
+    }
+
+    @Inject(
+            method = "onCloseHandledScreen",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;onHandledScreenClosed()V")
+    )
+    public void handleInventoryClose(CloseHandledScreenC2SPacket packet, CallbackInfo ci) {
+        InventoryCloseEvent event = new InventoryCloseEvent(player, player.currentScreenHandler);
+
+        event.callEvent();
     }
 }
