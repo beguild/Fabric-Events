@@ -57,24 +57,26 @@ public final class EventManager {
     }
 
     /**
-     * Registers all event handlers in the provided listener
+     * Registers all event handlers in the provided listeners
      * </p>
      * Searches for all methods annotated with {@link EventHandler} and registers them with the type of event in the parameter
      *
-     * @param listener The listener to register
+     * @param listeners The listeners to register
      */
-    public void registerEvents(@NotNull Listener listener) {
-        Method[] methods = listener.getClass().getMethods();
+    public void registerEvents(@NotNull Listener... listeners) {
+        for (Listener listener : listeners) {
+            Method[] methods = listener.getClass().getMethods();
 
-        for (Method method : methods) {
-            if (method.isAnnotationPresent(EventHandler.class)) {
-                EventHandler handlerAnnotation = method.getAnnotation(EventHandler.class);
-                Class<?> parameterType = method.getParameterTypes()[0];
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(EventHandler.class)) {
+                    EventHandler handlerAnnotation = method.getAnnotation(EventHandler.class);
+                    Class<?> parameterType = method.getParameterTypes()[0];
 
-                Preconditions.checkArgument(method.getParameterCount() == 1, "Event handler methods must have exactly one parameter");
-                Preconditions.checkArgument(Event.class.isAssignableFrom(parameterType), "Event handler methods must have exactly one parameter of type Event");
+                    Preconditions.checkArgument(method.getParameterCount() == 1, "Event handler methods must have exactly one parameter");
+                    Preconditions.checkArgument(Event.class.isAssignableFrom(parameterType), "Event handler methods must have exactly one parameter of type Event");
 
-                registeredListeners.put(handlerAnnotation.priority(), new RegisteredListener(listener, parameterType, method, handlerAnnotation.ignoreCancelled()));
+                    registeredListeners.put(handlerAnnotation.priority(), new RegisteredListener(listener, parameterType, method, handlerAnnotation.ignoreCancelled()));
+                }
             }
         }
     }
