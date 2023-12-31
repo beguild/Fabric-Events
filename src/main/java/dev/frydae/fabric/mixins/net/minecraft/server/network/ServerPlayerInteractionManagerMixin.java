@@ -46,6 +46,8 @@ public class ServerPlayerInteractionManagerMixin {
 
         if (!BlockEvents.callPlaceBlockEvent(player, world, newPos, world.getBlockState(newPos), stack)) {
             cir.setReturnValue(ActionResult.FAIL);
+
+            player.currentScreenHandler.updateToClient();
         }
     }
 
