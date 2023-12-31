@@ -3,7 +3,6 @@ package dev.frydae.fabric.events;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
-import dev.frydae.beguild.systems.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -50,7 +49,7 @@ public final class EventManager {
                         try {
                             registeredListener.method().invoke(registeredListener.listener(), event);
                         } catch (Exception e) {
-                            Log.exception("Error calling event " + event.getClass().getSimpleName(), e);
+                            FabricEvents.getLogger().error("Error calling event " + event.getClass().getSimpleName(), e);
                         }
                     }
                 }));
