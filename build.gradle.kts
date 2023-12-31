@@ -17,6 +17,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
+    modImplementation("dev.frydae:fcs-fabric:${version}")
+
     listOf("BeGuild-Common").forEach { dep ->
         if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
             implementation(project(path = ":${dep}", configuration = "namedElements"))
