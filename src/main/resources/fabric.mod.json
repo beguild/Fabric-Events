@@ -15,7 +15,7 @@
   "environment": "server",
   "entrypoints": {
     "server": [
-      "dev.frydae.fabric.events.FabricEventsServerModInitializer"
+      "dev.frydae.fabric.events.FabricEvents"
     ]
   },
   "mixins": [
