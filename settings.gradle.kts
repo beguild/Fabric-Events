@@ -33,8 +33,8 @@ rootProject.name = "Fabric-Events"
 
 listOf("BeGuild-Common").forEach { dep ->
     if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
-        implementation(project(path = ":${dep}", configuration = "namedElements"))
-    } else {
-        implementation("dev.frydae:${dep.lowercase()}:${version}")
+        include(dep)
+
+        project(":${dep}").projectDir = it
     }
 }
