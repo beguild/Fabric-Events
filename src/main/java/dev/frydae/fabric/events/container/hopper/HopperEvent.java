@@ -26,7 +26,7 @@ public abstract class HopperEvent extends Event implements Cancellable {
     }
 
     public World getWorld() {
-        return hopperLoc.world();
+        return hopperLoc.getWorld();
     }
 
     public boolean isBarrel() {
