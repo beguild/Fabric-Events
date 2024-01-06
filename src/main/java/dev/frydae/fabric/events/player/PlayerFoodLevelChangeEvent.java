@@ -1,8 +1,10 @@
 package dev.frydae.fabric.events.player;
 
 import dev.frydae.fabric.events.Cancellable;
+import lombok.Getter;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+@Getter
 public class PlayerFoodLevelChangeEvent extends PlayerEvent implements Cancellable {
     private final int oldFood;
     private final int newFood;
