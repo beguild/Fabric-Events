@@ -32,7 +32,7 @@ gradleEnterprise {
 rootProject.name = "Fabric-Events"
 
 listOf("BeGuild-Common").forEach { dep ->
-    if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
+    projectDir.parentFile.listFiles()?.filter { it.isDirectory && it.name.equals(dep) }?.forEach {
         include(dep)
 
         project(":${dep}").projectDir = it
