@@ -1,8 +1,8 @@
 plugins {
     java
     id("java-library")
-    id("io.freefair.lombok") version "8.3"
-    id("fabric-loom") version "1.4-SNAPSHOT"
+    id("io.freefair.lombok") version "8.7.1"
+    id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
 group = "dev.frydae"
