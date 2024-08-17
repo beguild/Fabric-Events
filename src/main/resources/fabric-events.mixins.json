@@ -31,6 +31,7 @@
     "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
     "net.minecraft.server.PlayerManagerMixin",
+    "net.minecraft.server.network.EntityTrackerEntryMixin",
     "net.minecraft.server.network.ServerPlayerEntityMixin",
     "net.minecraft.server.network.ServerPlayerInteractionManagerMixin",
     "net.minecraft.server.network.ServerPlayNetworkHandlerMixin"

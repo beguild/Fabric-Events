@@ -1,21 +1,33 @@
 package dev.frydae.fabric.mixins.net.minecraft.server;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.fabric.events.player.PlayerJoinEvent;
 import dev.frydae.fabric.events.player.PlayerJoinMessageEvent;
 import dev.frydae.fabric.events.player.PlayerLeaveEvent;
+import dev.frydae.fabric.events.player.PlayerListFilterEvent;
 import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ConnectedClientData;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
+import java.util.UUID;
+
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
+    @Shadow @Final private List<ServerPlayerEntity> players;
+
     @Redirect(
             method = "onPlayerConnect",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"))
@@ -41,5 +53,27 @@ public class PlayerManagerMixin {
         PlayerLeaveEvent event = new PlayerLeaveEvent(player);
 
         event.callEvent();
+    }
+
+    @WrapWithCondition(
+            method = "onPlayerConnect",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;sendToAll(Lnet/minecraft/network/packet/Packet;)V"))
+    public boolean sendToAllRedirect(PlayerManager instance, Packet<?> packet) {
+        // This method replaces the one that sends player list entries to everyone
+
+        if (packet instanceof PlayerListS2CPacket newPacket) {
+            UUID uuid = newPacket.getEntries().get(0).profileId();
+            ServerPlayerEntity playerToSend = BeGuildCommon.getServer().getPlayerManager().getPlayer(uuid);
+
+            PlayerListFilterEvent event = new PlayerListFilterEvent(newPacket, playerToSend, players);
+
+            event.callEvent();
+
+            event.getPlayersToSendTo().forEach(p -> p.networkHandler.sendPacket(newPacket));
+
+            return false;
+        }
+
+        return true;
     }
 }
