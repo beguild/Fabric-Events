@@ -1,6 +1,6 @@
 package dev.frydae.fabric.events.block;
 
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import dev.frydae.fabric.events.Cancellable;
 import dev.frydae.fabric.events.Event;
 import dev.frydae.fabric.events.block.extinguish.BlockExtinguishEvent;

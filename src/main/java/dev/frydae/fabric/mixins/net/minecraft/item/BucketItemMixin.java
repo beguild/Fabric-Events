@@ -1,6 +1,6 @@
 package dev.frydae.fabric.mixins.net.minecraft.item;
 
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import dev.frydae.fabric.events.block.BlockEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

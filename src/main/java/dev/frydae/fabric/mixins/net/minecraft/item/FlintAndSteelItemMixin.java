@@ -1,7 +1,7 @@
 package dev.frydae.fabric.mixins.net.minecraft.item;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import dev.frydae.fabric.events.block.BlockUtils;
 import dev.frydae.fabric.events.block.ignite.BlockIgniteEvent;
 import dev.frydae.fabric.events.block.ignite.CampfireBlockIgniteEvent;
@@ -29,7 +29,7 @@ public class FlintAndSteelItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
             cancellable = true
     )
-    public void useOnBlockSpecial(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir, @Local BlockPos blockPos, @Local BlockState blockState) {
+    public void useOnBlockSpecial(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir, @Local(ordinal = 0) BlockPos blockPos, @Local BlockState blockState) {
         BlockIgniteEvent event = null;
         World world = context.getWorld();
 

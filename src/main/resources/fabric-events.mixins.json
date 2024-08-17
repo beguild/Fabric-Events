@@ -30,6 +30,7 @@
     "net.minecraft.item.FlintAndSteelItemMixin",
     "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
+    "net.minecraft.server.MinecraftServerMixin",
     "net.minecraft.server.PlayerManagerMixin",
     "net.minecraft.server.network.EntityTrackerEntryMixin",
     "net.minecraft.server.network.ServerPlayerEntityMixin",

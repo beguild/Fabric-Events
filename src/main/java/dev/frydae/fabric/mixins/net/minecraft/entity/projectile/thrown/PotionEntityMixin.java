@@ -1,7 +1,7 @@
 package dev.frydae.fabric.mixins.net.minecraft.entity.projectile.thrown;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import dev.frydae.fabric.events.block.BlockEvents;
 import dev.frydae.fabric.events.block.BlockUtils;
 import net.minecraft.block.BlockState;

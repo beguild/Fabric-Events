@@ -1,7 +1,7 @@
 package dev.frydae.fabric.events.player;
 
 import dev.frydae.fabric.events.Cancellable;
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import lombok.Getter;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;

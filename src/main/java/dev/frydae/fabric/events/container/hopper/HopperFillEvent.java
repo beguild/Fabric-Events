@@ -1,6 +1,6 @@
 package dev.frydae.fabric.events.container.hopper;
 
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import net.minecraft.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 

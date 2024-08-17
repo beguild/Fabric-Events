@@ -1,6 +1,6 @@
 package dev.frydae.fabric.events.block;
 
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import lombok.Getter;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;

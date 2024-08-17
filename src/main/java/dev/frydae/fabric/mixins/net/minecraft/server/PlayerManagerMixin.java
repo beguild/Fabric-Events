@@ -1,7 +1,7 @@
 package dev.frydae.fabric.mixins.net.minecraft.server;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import dev.frydae.beguild.BeGuildCommon;
+import dev.frydae.fabric.events.FabricEvents;
 import dev.frydae.fabric.events.player.PlayerJoinEvent;
 import dev.frydae.fabric.events.player.PlayerJoinMessageEvent;
 import dev.frydae.fabric.events.player.PlayerLeaveEvent;
@@ -63,7 +63,7 @@ public class PlayerManagerMixin {
 
         if (packet instanceof PlayerListS2CPacket newPacket) {
             UUID uuid = newPacket.getEntries().get(0).profileId();
-            ServerPlayerEntity playerToSend = BeGuildCommon.getServer().getPlayerManager().getPlayer(uuid);
+            ServerPlayerEntity playerToSend = FabricEvents.getServer().getPlayerManager().getPlayer(uuid);
 
             PlayerListFilterEvent event = new PlayerListFilterEvent(newPacket, playerToSend, players);
 

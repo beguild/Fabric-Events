@@ -1,6 +1,6 @@
 package dev.frydae.fabric.events.block.extinguish;
 
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class CandleBlockExtinguishEvent extends BlockExtinguishEvent {

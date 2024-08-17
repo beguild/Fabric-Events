@@ -1,7 +1,7 @@
 package dev.frydae.fabric.mixins.net.minecraft.block.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.beguild.utils.Location;
+import dev.frydae.fabric.utils.Location;
 import dev.frydae.fabric.events.container.hopper.HopperDrainEvent;
 import dev.frydae.fabric.events.container.hopper.HopperFillEvent;
 import net.minecraft.block.BlockState;
