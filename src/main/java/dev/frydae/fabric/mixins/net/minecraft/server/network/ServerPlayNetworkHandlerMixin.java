@@ -54,7 +54,7 @@ public class ServerPlayNetworkHandlerMixin {
             if (event.isCancelled()) {
                 ci.cancel();
 
-                player.teleport(player.getX(), player.getY(), player.getZ());
+                player.teleport(player.getX(), player.getY(), player.getZ(), false);
             }
         }
     }

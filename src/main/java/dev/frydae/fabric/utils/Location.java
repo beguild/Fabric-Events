@@ -167,8 +167,8 @@ public final class Location {
         return null;
     }
 
-    public static dev.frydae.fabric.utils.Location fromCompound(NbtCompound compound) {
-        return new dev.frydae.fabric.utils.Location(
+    public static Location fromCompound(NbtCompound compound) {
+        return new Location(
                 Objects.requireNonNull(findWorld(compound.getString("world"))),
                 compound.getDouble("x"),
                 compound.getDouble("y"),

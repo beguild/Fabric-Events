@@ -24,7 +24,7 @@ public class BeaconBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;openHandledScreen(Lnet/minecraft/screen/NamedScreenHandlerFactory;)Ljava/util/OptionalInt;"),
             cancellable = true
     )
-    public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+    public void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof BeaconBlockEntity beaconBlockEntity) {

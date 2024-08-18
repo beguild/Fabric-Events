@@ -28,7 +28,6 @@
     "net.minecraft.entity.projectile.thrown.PotionEntityMixin",
     "net.minecraft.item.BucketItemMixin",
     "net.minecraft.item.FlintAndSteelItemMixin",
-    "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
     "net.minecraft.server.MinecraftServerMixin",
     "net.minecraft.server.PlayerManagerMixin",
