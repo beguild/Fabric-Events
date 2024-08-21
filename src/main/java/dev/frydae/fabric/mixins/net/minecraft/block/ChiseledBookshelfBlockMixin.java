@@ -21,6 +21,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.OptionalInt;
+
 @Mixin(ChiseledBookshelfBlock.class)
 public class ChiseledBookshelfBlockMixin {
     @Inject(
@@ -28,13 +30,17 @@ public class ChiseledBookshelfBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/ChiseledBookshelfBlock;tryRemoveBook(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/block/entity/ChiseledBookshelfBlockEntity;I)V"),
             cancellable = true
     )
-    public void onRemoveBook(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir, @Local int slot) {
+    public void onRemoveBook(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir, @Local OptionalInt slot) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
-        if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof ChiseledBookshelfBlockEntity chiseledBookshelfBlockEntity) {
-            ItemStack book = chiseledBookshelfBlockEntity.getStack(slot);
+        if (slot.isEmpty()) {
+            return;
+        }
 
-            ChiseledBookshelfRemoveEvent event = new ChiseledBookshelfRemoveEvent(serverPlayer, chiseledBookshelfBlockEntity, slot, book);
+        if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof ChiseledBookshelfBlockEntity chiseledBookshelfBlockEntity) {
+            ItemStack book = chiseledBookshelfBlockEntity.getStack(slot.getAsInt());
+
+            ChiseledBookshelfRemoveEvent event = new ChiseledBookshelfRemoveEvent(serverPlayer, chiseledBookshelfBlockEntity, slot.getAsInt(), book);
 
             event.callEvent();
 
@@ -49,13 +55,17 @@ public class ChiseledBookshelfBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/ChiseledBookshelfBlock;tryAddBook(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/block/entity/ChiseledBookshelfBlockEntity;Lnet/minecraft/item/ItemStack;I)V"),
             cancellable = true
     )
-    public void onPlaceBook(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir, @Local int slot) {
+    public void onPlaceBook(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir, @Local OptionalInt slot) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
+
+        if (slot.isEmpty()) {
+            return;
+        }
 
         if (player instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof ChiseledBookshelfBlockEntity chiseledBookshelfBlockEntity) {
             ItemStack book = player.getStackInHand(hand);
 
-            ChiseledBookshelfPlaceEvent event = new ChiseledBookshelfPlaceEvent(serverPlayer, chiseledBookshelfBlockEntity, slot, book);
+            ChiseledBookshelfPlaceEvent event = new ChiseledBookshelfPlaceEvent(serverPlayer, chiseledBookshelfBlockEntity, slot.getAsInt(), book);
 
             event.callEvent();
 
