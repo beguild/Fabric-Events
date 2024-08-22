@@ -24,16 +24,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class HopperBlockEntityMixin {
     @Inject(
             method = "insert",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;removeStack(II)Lnet/minecraft/item/ItemStack;"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/HopperBlockEntity;removeStack(II)Lnet/minecraft/item/ItemStack;"),
             cancellable = true
     )
-    private static void drain(World world, BlockPos pos, BlockState state, Inventory hopper, CallbackInfoReturnable<Boolean> cir, @Local(ordinal = 1) Inventory target, @Local(ordinal = 0) Direction direction) {
+    private static void drain(World world, BlockPos pos, HopperBlockEntity blockEntity, CallbackInfoReturnable<Boolean> cir, @Local(ordinal = 0) Inventory target, @Local(ordinal = 0) Direction direction) {
         BlockPos targetPos = pos.offset(direction);
 
-        boolean failure = !callDrainEvent((Hopper) hopper, new Location(world, pos), target, new Location(world, targetPos));
+        boolean failure = !callDrainEvent(blockEntity, new Location(world, pos), target, new Location(world, targetPos));
 
         if (target instanceof HopperBlockEntity) {
-            boolean fillStatus = !callFillEvent((Hopper) target, new Location(world, targetPos), hopper, new Location(world, pos));
+            boolean fillStatus = !callFillEvent((Hopper) target, new Location(world, targetPos), blockEntity, new Location(world, pos));
 
             failure |= fillStatus;
         }
@@ -45,7 +45,7 @@ public class HopperBlockEntityMixin {
 
     @Inject(
             method = "extract(Lnet/minecraft/world/World;Lnet/minecraft/block/entity/Hopper;)Z",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/HopperBlockEntity;isInventoryEmpty(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/util/math/Direction;)Z"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/HopperBlockEntity;getAvailableSlots(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/util/math/Direction;)[I"),
             cancellable = true
     )
     private static void fill(World world, Hopper hopper, CallbackInfoReturnable<Boolean> cir, @Local(ordinal = 0) Inventory source) {

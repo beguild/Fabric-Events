@@ -8,7 +8,6 @@ plugins {
 group = "dev.frydae"
 version = "${property("fabric_version")!!}-SNAPSHOT"
 
-apply(from = uri("https://files.frydae.dev/gradle/common.gradle"))
 apply(from = uri("https://files.frydae.dev/gradle/publishing.gradle"))
 
 dependencies {
@@ -18,14 +17,20 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
     modImplementation("dev.frydae:fcs-fabric:${version}")
+    implementation(group = "com.google.errorprone", name = "error_prone_annotations", version = "2.29.2")
 
-    listOf("BeGuild-Common").forEach { dep ->
-        if (projectDir.parentFile.listFiles()?.any { it.isDirectory && it.name.equals(dep) } == true) {
-            implementation(project(path = ":${dep}", configuration = "namedElements"))
-        } else {
-            implementation("dev.frydae:${dep.lowercase()}:${version}")
-        }
-    }
+}
+
+repositories {
+    maven { url = uri("https://maven.frydae.dev/releases/") }
+    maven { url = uri("https://maven.frydae.dev/snapshots/") }
+}
+
+java {
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 tasks {

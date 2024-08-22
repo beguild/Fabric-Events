@@ -28,13 +28,15 @@
     "net.minecraft.entity.projectile.thrown.PotionEntityMixin",
     "net.minecraft.item.BucketItemMixin",
     "net.minecraft.item.FlintAndSteelItemMixin",
-    "net.minecraft.item.MusicDiscItemMixin",
     "net.minecraft.screen.LecternScreenHandlerMixin",
     "net.minecraft.server.MinecraftServerMixin",
     "net.minecraft.server.PlayerManagerMixin",
     "net.minecraft.server.network.EntityTrackerEntryMixin",
     "net.minecraft.server.network.ServerPlayerEntityMixin",
     "net.minecraft.server.network.ServerPlayerInteractionManagerMixin",
-    "net.minecraft.server.network.ServerPlayNetworkHandlerMixin"
+    "net.minecraft.server.network.ServerPlayNetworkHandlerMixin",
+    "net.minecraft.structure.StructureStartMixin",
+    "net.minecraft.world.gen.chunk.ChunkGeneratorMixin",
+    "net.minecraft.world.gen.structure.JigsawStructureAccessor"
   ]
 }

@@ -7,6 +7,7 @@ import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.LecternBlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -43,7 +44,7 @@ public class LecternBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/LecternBlockEntity;setBook(Lnet/minecraft/item/ItemStack;)V"),
             cancellable = true
     )
-    private static void putBook(Entity user, World world, BlockPos pos, BlockState state, ItemStack stack, CallbackInfo ci) {
+    private static void putBook(LivingEntity user, World world, BlockPos pos, BlockState state, ItemStack stack, CallbackInfo ci) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
 
         if (user instanceof ServerPlayerEntity serverPlayer && blockEntity instanceof LecternBlockEntity) {
