@@ -20,4 +20,20 @@ public class NumUtil {
     public static double assertVerticalCoordinate(double d) {
         return assertBounds(d, -64, 320);
     }
+
+    /**
+     * Fixes negative coordinates due to -0 not being a thing in Minecraft.
+     *
+     * If the coordinate is negative, it rounds down to the next lower integer.
+     *
+     * @param d the coordinate to be fixed
+     * @return the corrected coordinate
+     */
+    public static double correctCoordinate(double d) {
+        if (d < 0.0) {
+            return Math.floor(d);
+        }
+
+        return d;
+    }
 }

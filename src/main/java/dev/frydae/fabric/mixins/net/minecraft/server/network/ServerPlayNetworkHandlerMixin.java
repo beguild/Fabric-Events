@@ -38,13 +38,25 @@ public class ServerPlayNetworkHandlerMixin {
             cancellable = true
     )
     public void move(PlayerMoveC2SPacket packet, CallbackInfo ci) {
-        int oldX = (int) player.getX();
-        int oldY = (int) player.getY();
-        int oldZ = (int) player.getZ();
+        // region Collect coordinates
+        double oldX = player.getX();
+        double oldY = player.getY();
+        double oldZ = player.getZ();
 
-        int newX = (int) NumUtil.assertHorizontalCoordinate(packet.getX(this.player.getX()));
-        int newY = (int) NumUtil.assertVerticalCoordinate(packet.getY(this.player.getY()));
-        int newZ = (int) NumUtil.assertHorizontalCoordinate(packet.getZ(this.player.getZ()));
+        double newX = NumUtil.assertHorizontalCoordinate(packet.getX(this.player.getX()));
+        double newY = NumUtil.assertVerticalCoordinate(packet.getY(this.player.getY()));
+        double newZ = NumUtil.assertHorizontalCoordinate(packet.getZ(this.player.getZ()));
+        // endregion
+
+        // region Correct coordinates
+        oldX = (int) NumUtil.correctCoordinate(oldX);
+        oldY = (int) NumUtil.correctCoordinate(oldY);
+        oldZ = (int) NumUtil.correctCoordinate(oldZ);
+
+        newX = (int) NumUtil.correctCoordinate(newX);
+        newY = (int) NumUtil.correctCoordinate(newY);
+        newZ = (int) NumUtil.correctCoordinate(newZ);
+        // endregion
 
         if (!Objects.equals(oldX, newX) || !Objects.equals(oldY, newY) || !Objects.equals(oldZ, newZ)) {
             PlayerMoveEvent event = new PlayerMoveEvent(player, new Location(player.getServerWorld(), oldX, oldY, oldZ), new Location(player.getServerWorld(), newX, newY, newZ));
