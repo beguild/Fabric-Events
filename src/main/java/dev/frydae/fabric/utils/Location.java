@@ -126,10 +126,18 @@ public final class Location {
         return new Location(world, this.x - x, this.y - y, this.z - z);
     }
 
-    public boolean isWithin(@NotNull Location lowLoc, @NotNull Location highLoc) {
-        return lowLoc.getBlockX() <= getBlockX() && getBlockX() <= highLoc.getBlockX() &&
-                lowLoc.getBlockY() <= getBlockY() && getBlockY() <= highLoc.getBlockY() &&
-                lowLoc.getBlockZ() <= getBlockZ() && getBlockZ() <= highLoc.getBlockZ();
+    public boolean isWithin(@NotNull Location pos1, @NotNull Location pos2) {
+        int minX = Math.min(pos1.getBlockX(), pos2.getBlockX());
+        int minY = Math.min(pos1.getBlockY(), pos2.getBlockY());
+        int minZ = Math.min(pos1.getBlockZ(), pos2.getBlockZ());
+
+        int maxX = Math.max(pos1.getBlockX(), pos2.getBlockX());
+        int maxY = Math.max(pos1.getBlockY(), pos2.getBlockY());
+        int maxZ = Math.max(pos1.getBlockZ(), pos2.getBlockZ());
+
+        return getBlockX() >= minX && getBlockX() <= maxX &&
+                getBlockY() >= minY && getBlockY() <= maxY &&
+                getBlockZ() >= minZ && getBlockZ() <= maxZ;
     }
 
     @NotNull
