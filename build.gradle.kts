@@ -1,7 +1,7 @@
 plugins {
     java
     id("java-library")
-    id("io.freefair.lombok") version "8.10"
+    id("io.freefair.lombok") version "8.10.2"
     id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
